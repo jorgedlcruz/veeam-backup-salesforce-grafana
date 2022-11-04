@@ -210,6 +210,7 @@ for id in $(echo "$veeamVBSFCompaniesUrl" | jq -r '.companies[].id'); do
             restoreID=$(echo "$veeamVBSFRestoresUrl" | jq --raw-output '.jobs['$arrayrestores']."id"')
             restoreName=$(echo "$veeamVBSFRestoresUrl" | jq --raw-output '.jobs['$arrayrestores']."name"' | awk '{gsub(/ /,"\\ ");print}')
             restoreDescription=$(echo "$veeamVBSFRestoresUrl" | jq --raw-output '.jobs['$arrayrestores']."description"' | awk '{gsub(/ /,"\\ ");print}')
+            if [ "$restoreDescription" == "" ]; then declare -i restoreDescription="None"; fi
             restoreStatus=$(echo "$veeamVBSFRestoresUrl" | jq --raw-output ".jobs[$arrayrestores].status")
             restoreType=$(echo "$veeamVBSFRestoresUrl" | jq --raw-output '.jobs['$arrayrestores']."restore_type_state.mode"') 
             restoreCreatedDate=$(echo "$veeamVBSFRestoresUrl" | jq --raw-output ".jobs[$arrayrestores].vsf_insert_date")
